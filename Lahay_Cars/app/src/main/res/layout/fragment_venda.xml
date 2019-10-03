@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".carros.venda.VendaFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relModelo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Modelo"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="Modelo do carro"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relModelo"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/estilo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estilo"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/radioTipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/estilo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/esportivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:checked="true"
+                    android:text="Esportivo" />
+
+                <RadioButton
+                    android:id="@+id/conversivel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="Conversível" />
+
+            </RadioGroup>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_below="@id/radioTipo"
+                android:layout_height="1dp"
+                android:background="#808080"
+                android:layout_marginTop="15dp"
+                android:id="@+id/linha"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Especificações"
+                android:id="@+id/espec"
+                android:layout_below="@id/linha"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textSize="17dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioTipo"
+                android:layout_marginTop="80dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/relative1">
+
+                <TextView
+                    android:id="@+id/Ano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ano:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="60dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerAno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/Ano"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/anoCarro" />
+
+                <TextView
+                    android:id="@+id/cor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cor:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/spinnerAno"/>
+
+                <Spinner
+                    android:id="@+id/spinnerCor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/cor"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/corCarro" />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative1"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/Tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerTipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/Tipo"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/tipoCarro" />
+
+                <TextView
+                    android:id="@+id/aro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aro:"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/spinnerTipo"/>
+
+                <Spinner
+                    android:id="@+id/spinnerAro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/aro"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/aroCarro" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_below="@id/spinnerAro"
+                    android:layout_height="1dp"
+                    android:background="#808080"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/linha2"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linha2"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cancelar"
+                            android:id="@+id/CancelarVenda"/>
+                    </LinearLayout>
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cadastrar"
+                        android:id="@+id/cadastrar"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

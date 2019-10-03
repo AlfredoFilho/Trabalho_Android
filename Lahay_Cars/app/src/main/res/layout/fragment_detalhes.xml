@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".detalhescarro.DetalhesFragment"
+    android:id="@+id/detalhesFrag">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/box_contato"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginBottom="15dp">
+            <TextView
+                android:text="Biografias"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/alunos"
+            android:textSize="20dp"
+            android:paddingBottom="10dp"
+            android:layout_below="@+id/box_contato"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Felipe Marchi" />
+
+
+        <LinearLayout
+            android:id="@+id/carrossel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/alunos">
+            <Button
+                android:id="@+id/button_anterior"
+                android:layout_below="@id/descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:background="#00000000"/>
+
+            <Button
+                android:id="@+id/button_proximo"
+                android:layout_below="@id/descricao"
+                android:layout_toRightOf="@+id/button_anterior"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:background="#00000000"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/descricao"
+            android:layout_below="@+id/carrossel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+
+            android:paddingBottom="30dp" />
+    </RelativeLayout>
+
+
+</FrameLayout>
