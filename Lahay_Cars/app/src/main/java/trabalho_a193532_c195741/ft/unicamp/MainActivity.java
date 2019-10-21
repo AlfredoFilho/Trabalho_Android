@@ -1,6 +1,13 @@
 package trabalho_a193532_c195741.ft.unicamp;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,13 +23,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.net.URI;
+import java.security.Permission;
+
 import trabalho_a193532_c195741.ft.unicamp.carros.CarrosFragment;
 import trabalho_a193532_c195741.ft.unicamp.detalhescarro.DetalhesFragment;
 import trabalho_a193532_c195741.ft.unicamp.carros.venda.VendaFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private final int GALLERIA_IMAGENS =1;
+    private final int PERMISSON_REQUEST = 2;
     FragmentManager fragmentManager;
 
     @Override
@@ -134,4 +144,35 @@ public class MainActivity extends AppCompatActivity
         autoresFragment.setMailContent(mensagem);
         replaceFragment(autoresFragment, "autores_fragment");
     }*/
+
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data){
+    super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_OK && requestCode == GALLERIA_IMAGENS){
+            Uri selectedImage = data.getData();
+            String[] filePath = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePath, null, null ,null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePath[0]);
+            String picturePath = c.getString(columnIndex);
+            c.close();
+            Bitmap imagemGaleria = (BitmapFactory.decodeFile(picturePath));
+            ((VendaFragment) fragmentManager.findFragmentByTag("venda_Fragment")).setImageGaleria(imagemGaleria);
+        }
+    }
+
+    public void onRequestPermissonResult (int requestCode, String permisson[], int[] gratResult) {
+        if (requestCode == PERMISSON_REQUEST) {
+            if (gratResult.length > 0 && gratResult[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+
+            }
+            return;
+        }
+
+
+    }
 }
+
