@@ -1,5 +1,6 @@
 package trabalho_a193532_c195741.ft.unicamp;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,9 +11,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -52,10 +55,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
+
         if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.frame, new FirstFragment(), "first_fragment");
             fragmentTransaction.commit();
+        }
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+
+            }else{
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},PERMISSON_REQUEST);
+            }
         }
     }
 
@@ -144,35 +155,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         autoresFragment.setMailContent(mensagem);
         replaceFragment(autoresFragment, "autores_fragment");
     }*/
-
-
-    @Override
-    protected void onActivityResult (int requestCode, int resultCode, Intent data){
-    super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_OK && requestCode == GALLERIA_IMAGENS){
-            Uri selectedImage = data.getData();
-            String[] filePath = {MediaStore.Images.Media.DATA};
-            Cursor c = getContentResolver().query(selectedImage, filePath, null, null ,null);
-            c.moveToFirst();
-            int columnIndex = c.getColumnIndex(filePath[0]);
-            String picturePath = c.getString(columnIndex);
-            c.close();
-            Bitmap imagemGaleria = (BitmapFactory.decodeFile(picturePath));
-            ((VendaFragment) fragmentManager.findFragmentByTag("venda_Fragment")).setImageGaleria(imagemGaleria);
-        }
-    }
-
-    public void onRequestPermissonResult (int requestCode, String permisson[], int[] gratResult) {
-        if (requestCode == PERMISSON_REQUEST) {
-            if (gratResult.length > 0 && gratResult[0] == PackageManager.PERMISSION_GRANTED) {
-
-            } else {
-
-            }
-            return;
-        }
-
-
-    }
 }
 

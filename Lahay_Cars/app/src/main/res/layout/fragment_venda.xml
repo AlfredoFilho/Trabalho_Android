@@ -188,35 +188,36 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/linha3"
+                    android:layout_below="@id/linha2"
                     android:layout_marginTop="20dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Cancelar"
                             android:id="@+id/CancelarVenda"/>
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cadastrar"
+                            android:id="@+id/cadastrar"/>
                     </LinearLayout>
-
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cadastrar"
-                        android:id="@+id/cadastrar"/>
 
                 </LinearLayout>
 
+
                 <LinearLayout
+                    android:layout_marginTop="210dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/linha3"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/ImgCarro"
@@ -231,8 +232,11 @@
                         android:layout_height="wrap_content">
                     </Button>
 
-
                 </LinearLayout>
+
+
+
+
 
 
             </RelativeLayout>
