@@ -59,7 +59,7 @@ public class DetalhesActivity extends AppCompatActivity {
 
         }
 
-        this.carro=Carros.carros[this.position];
+        this.carro = Carros.carros[this.position];
 
         imagem = findViewById(R.id.imagemCarro);
         imagem.setImageResource(carro.getFoto());
