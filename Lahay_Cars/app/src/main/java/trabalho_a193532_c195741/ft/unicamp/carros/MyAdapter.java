@@ -1,14 +1,10 @@
 package trabalho_a193532_c195741.ft.unicamp.carros;
 
-import trabalho_a193532_c195741.ft.unicamp.MainActivity;
 import trabalho_a193532_c195741.ft.unicamp.R;
-import trabalho_a193532_c195741.ft.unicamp.detalhescarro.DetalhesFragment;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -47,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter{
             @Override
             public void onClick(View view) {
                 if (myOnItemClickListener != null) {
-                    TextView txt = view.findViewById(R.id.alunos);
+                    TextView txt = view.findViewById(R.id.modeloCarro);
                     myOnItemClickListener.mostrarNomeCarro(txt.getText().toString());
                 }
             }
@@ -93,7 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter{
         public MyFirstViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imagem);
-            nomeTextView = itemView.findViewById(R.id.alunos);
+            nomeTextView = itemView.findViewById(R.id.modeloCarro);
             descricaoTextView = itemView.findViewById(R.id.descricao);
             precoTextView = itemView.findViewById(R.id.preco);
             button = itemView.findViewById(R.id.btnMais);

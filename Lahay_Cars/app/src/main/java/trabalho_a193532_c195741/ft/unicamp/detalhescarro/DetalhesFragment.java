@@ -39,7 +39,7 @@ public class DetalhesFragment extends Fragment {
         if (view == null)
             view = inflater.inflate(R.layout.fragment_detalhes, container, false);
         imageView = view.findViewById(R.id.imagem);
-        nomeTextView = view.findViewById(R.id.alunos);
+        nomeTextView = view.findViewById(R.id.modeloCarro);
         descricaoTextView = view.findViewById(R.id.descricao);
 
         view.findViewById(R.id.button_anterior).setOnClickListener(new Button.OnClickListener() {

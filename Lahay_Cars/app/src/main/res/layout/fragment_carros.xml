@@ -11,7 +11,7 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/alunos"
+            android:id="@+id/modeloCarro"
             android:textSize="30dp"
             android:textStyle="bold"
             android:paddingBottom="10dp"
@@ -22,7 +22,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_below="@id/alunos"
+            android:layout_below="@id/modeloCarro"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>

@@ -29,7 +29,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/alunos"
+            android:id="@+id/modeloCarro"
             android:textSize="20dp"
             android:paddingBottom="10dp"
             android:layout_below="@+id/box_contato"
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_below="@+id/alunos">
+            android:layout_below="@+id/modeloCarro">
             <Button
                 android:id="@+id/button_anterior"
                 android:layout_below="@id/descricao"

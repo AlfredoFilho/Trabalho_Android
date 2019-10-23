@@ -22,7 +22,7 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/alunos"
+                android:id="@+id/modeloCarro"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"

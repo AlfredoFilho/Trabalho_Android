@@ -117,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 carrosFragment = new CarrosFragment();
             replaceFragment(carrosFragment, "carros_fragment");
 
-
-
         } else if (id == R.id.nav_vender) {
             Fragment vendaFragment = fragmentManager.findFragmentByTag("venda_Fragment");
             if (vendaFragment == null)

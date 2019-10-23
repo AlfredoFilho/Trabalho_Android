@@ -25,9 +25,6 @@ import trabalho_a193532_c195741.ft.unicamp.R;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class VendaFragment extends Fragment {
 
     private Button cancelarBtnVenda;
