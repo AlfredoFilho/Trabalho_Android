@@ -1,21 +1,34 @@
 package trabalho_a193532_c195741.ft.unicamp.carros.venda;
 
 
+import android.Manifest;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import java.io.IOException;
+
 import trabalho_a193532_c195741.ft.unicamp.R;
 import trabalho_a193532_c195741.ft.unicamp.database.BDHelper;
+
+import static android.app.Activity.RESULT_OK;
 
 public class VendaFragment extends Fragment {
 
@@ -25,10 +38,11 @@ public class VendaFragment extends Fragment {
     private RadioButton conversivel;
     private Spinner ano;
     private Spinner cor;
-    private Spinner cambio;
-    private Spinner aro;
+    private RadioButton cambio;
     private EditText descricao;
     private View view;
+    private Button carregarFoto;
+    private ImageView fotocarro;
 
     BDHelper bdHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -43,8 +57,28 @@ public class VendaFragment extends Fragment {
         bdHelper = new BDHelper(getActivity());
         sqLiteDatabase = bdHelper.getReadableDatabase();
 
+
+
+
+
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_venda, container, false);
+            carregarFoto = view.findViewById(R.id.btnFoto);
+            fotocarro = view.findViewById(R.id.fotoCarro);
+
+            carregarFoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (ActivityCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                2000);
+                    } else {
+                        startGallery();
+                    }
+                }
+            });
         }
 
         modelo = view.findViewById(R.id.modelo);
@@ -53,8 +87,7 @@ public class VendaFragment extends Fragment {
         conversivel = view.findViewById(R.id.conversivel);
         ano = view.findViewById(R.id.spinnerAno);
         cor = view.findViewById(R.id.spinnerCor);
-        cambio = view.findViewById(R.id.spinnerCambio);
-        aro = view.findViewById(R.id.spinnerAro);
+//      cambio = view.findViewById(R.id.radioCambio);
         descricao = view.findViewById(R.id.descricao);
 
         view.findViewById(R.id.CancelarVenda).setOnClickListener(new View.OnClickListener() {
@@ -73,7 +106,7 @@ public class VendaFragment extends Fragment {
         return view;
     }
 
-    public void cadastrarVenda(){
+    public void cadastrarVenda() {
 
         RadioButton radioSelectButton;
 
@@ -82,6 +115,7 @@ public class VendaFragment extends Fragment {
         int selectedId = radiotipo.getCheckedRadioButtonId();
         radioSelectButton = view.findViewById(selectedId);
 
+
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("img", "imagemTeste");
@@ -89,11 +123,10 @@ public class VendaFragment extends Fragment {
         contentValues.put("estilo", radioSelectButton.getText().toString());
         contentValues.put("ano", ano.getSelectedItem().toString());
         contentValues.put("cor", cor.getSelectedItem().toString());
-        contentValues.put("cambio", cambio.getSelectedItem().toString());
-        contentValues.put("aro", aro.getSelectedItem().toString());
+        contentValues.put("cambio", radioSelectButton.getText().toString());
         contentValues.put("descricao", descricao.getText().toString());
 
-        sqLiteDatabase.execSQL("delete from "+ TABLE_NAME);
+        sqLiteDatabase.execSQL("delete from " + TABLE_NAME);
 
         sqLiteDatabase.insert("CarrosVender", null, contentValues);
 
@@ -101,7 +134,7 @@ public class VendaFragment extends Fragment {
 
     }
 
-    public void testeCadastro(){
+    public void testeCadastro() {
 
         String sql = "Select * from CarrosVender";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
@@ -120,5 +153,32 @@ public class VendaFragment extends Fragment {
 
         }
         cursor.close();
+    }
+
+
+    private void startGallery() {
+        Intent cameraIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        cameraIntent.setType("image/*");
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, 1000);
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super method removed
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1000) {
+                Uri returnUri = data.getData();
+                Bitmap bitmapImage = null;
+                try {
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                fotocarro.setImageBitmap(bitmapImage);
+            }
+        }
     }
 }

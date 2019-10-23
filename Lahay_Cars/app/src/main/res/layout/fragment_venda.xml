@@ -5,16 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".carros.venda.VendaFragment">
 
-    <RelativeLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/relModelo"
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -27,15 +32,8 @@
                 android:id="@+id/modelo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:hint="Modelo do carro"/>
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/relModelo"
-            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/estilo"
@@ -43,14 +41,13 @@
                 android:layout_height="wrap_content"
                 android:text="Estilo"
                 android:textSize="17dp"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold" />
 
             <RadioGroup
                 android:id="@+id/radioTipo"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/estilo"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -58,7 +55,7 @@
                     android:id="@+id/esportivo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="10dp"
                     android:checked="true"
                     android:text="Esportivo" />
 
@@ -66,34 +63,35 @@
                     android:id="@+id/conversivel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="10dp"
                     android:text="Conversível" />
 
             </RadioGroup>
 
+
             <View
+                android:id="@+id/linha"
+
                 android:layout_width="fill_parent"
-                android:layout_below="@id/radioTipo"
                 android:layout_height="1dp"
-                android:background="#808080"
-                android:layout_marginTop="15dp"
-                android:id="@+id/linha"/>
+                android:layout_marginTop="20dp"
+                android:background="#C9C9C9" />
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Especificações"
                 android:id="@+id/espec"
-                android:layout_below="@id/linha"
                 android:layout_marginTop="20dp"
                 android:textStyle="bold"
-                android:textSize="17dp"/>
+                android:textSize="17sp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/radioTipo"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/relative1">
 
@@ -102,9 +100,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ano:"
+                    android:layout_marginLeft="10dp"
                     android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="60dp"/>
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerAno"
@@ -120,6 +118,7 @@
                     android:layout_height="wrap_content"
                     android:text="Cor:"
                     android:textSize="17dp"
+                    android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@id/spinnerAno"/>
 
@@ -131,9 +130,9 @@
                     android:drawSelectorOnTop="true"
                     android:entries="@array/corCarro" />
 
+
+
             </RelativeLayout>
-
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -150,37 +149,51 @@
                     android:textSize="17dp"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spinnerCambio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/Cambio"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/tipoCarro" />
+                <!-- <Spinner
+                      android:id="@+id/spinnerCambio"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_toRightOf="@id/Cambio"
+                      android:drawSelectorOnTop="true"
+                      android:entries="@array/tipoCarro" />-->
 
-                <TextView
-                    android:id="@+id/aro"
+                <RadioGroup
+                    android:id="@+id/radioCambio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Aro:"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@id/spinnerCambio"/>
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    >
 
-                <Spinner
-                    android:id="@+id/spinnerAro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/aro"
-                    android:drawSelectorOnTop="true"
-                    android:entries="@array/aroCarro" />
+                    <RadioButton
+                        android:id="@+id/automatico"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:checked="true"
+                        android:text="Automatico"/>
+
+                    <RadioButton
+                        android:id="@+id/Semi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Semi" />
+
+                    <RadioButton
+                        android:id="@+id/Manual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Manual" />
+
+                </RadioGroup>
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_below="@id/spinnerAro"
                     android:layout_height="1dp"
-                    android:background="#808080"
-                    android:layout_marginTop="20dp"
+                    android:background="#C9C9C9"
+                    android:layout_marginTop="65dp"
                     android:id="@+id/linha2"/>
 
                 <TextView
@@ -200,37 +213,64 @@
                     android:layout_below="@id/descricaoTitulo"
                     android:hint="Descrição do carro"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/descricao"
-                    android:layout_marginTop="20dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cancelar"
-                            android:id="@+id/CancelarVenda"/>
-                    </LinearLayout>
-
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cadastrar"
-                        android:id="@+id/cadastrar"/>
-
-                </LinearLayout>
-
             </RelativeLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </RelativeLayout>
+                <ImageView
+                    android:id="@+id/fotoCarro"
+                    android:layout_width="385dp"
+                    android:layout_height="150dp"/>
+
+                <Button
+                    android:id="@+id/btnFoto"
+                    android:layout_width="115dp"
+                    android:layout_height="match_parent"
+                    android:text="enviar foto">
+
+                </Button>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/descricao"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:layout_width="115dp"
+                        android:layout_height="wrap_content"
+                        android:text="Cancelar"
+                        android:id="@+id/CancelarVenda"/>
+                </LinearLayout>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cadastrar"
+                    android:id="@+id/cadastrar"/>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </ScrollView>
