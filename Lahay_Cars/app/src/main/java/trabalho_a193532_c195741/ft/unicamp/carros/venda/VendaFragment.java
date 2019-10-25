@@ -38,11 +38,12 @@ public class VendaFragment extends Fragment {
     private RadioButton conversivel;
     private Spinner ano;
     private Spinner cor;
-    private RadioButton cambio;
     private EditText descricao;
     private View view;
+    private EditText preco;
     private Button carregarFoto;
     private ImageView fotocarro;
+    private RadioGroup radioCambio;
 
     BDHelper bdHelper;
     SQLiteDatabase sqLiteDatabase;
@@ -57,29 +58,26 @@ public class VendaFragment extends Fragment {
         bdHelper = new BDHelper(getActivity());
         sqLiteDatabase = bdHelper.getReadableDatabase();
 
-
-
-
-
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_venda, container, false);
-            carregarFoto = view.findViewById(R.id.btnFoto);
-            fotocarro = view.findViewById(R.id.fotoCarro);
-
-            carregarFoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ActivityCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                2000);
-                    } else {
-                        startGallery();
-                    }
-                }
-            });
         }
+
+        carregarFoto = view.findViewById(R.id.btnFoto);
+        fotocarro = view.findViewById(R.id.fotoCarro);
+
+        carregarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            2000);
+                } else {
+                    startGallery();
+                }
+            }
+        });
 
         modelo = view.findViewById(R.id.modelo);
         radiotipo = view.findViewById(R.id.radioTipo);
@@ -87,8 +85,9 @@ public class VendaFragment extends Fragment {
         conversivel = view.findViewById(R.id.conversivel);
         ano = view.findViewById(R.id.spinnerAno);
         cor = view.findViewById(R.id.spinnerCor);
-//      cambio = view.findViewById(R.id.radioCambio);
         descricao = view.findViewById(R.id.descricao);
+        preco = view.findViewById(R.id.preco);
+        radioCambio = view.findViewById(R.id.radioCambio);
 
         view.findViewById(R.id.CancelarVenda).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,25 +107,29 @@ public class VendaFragment extends Fragment {
 
     public void cadastrarVenda() {
 
-        RadioButton radioSelectButton;
+        RadioButton radioTipoSelected;
+        RadioButton radioCambioSelected;
 
         String TABLE_NAME = "CarrosVender";
 
         int selectedId = radiotipo.getCheckedRadioButtonId();
-        radioSelectButton = view.findViewById(selectedId);
+        radioTipoSelected = view.findViewById(selectedId);
 
+        int selectedCambioId = radioCambio.getCheckedRadioButtonId();
+        radioCambioSelected = view.findViewById(selectedCambioId);
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("img", "imagemTeste");
-        contentValues.put("modelo", modelo.getText().toString());
-        contentValues.put("estilo", radioSelectButton.getText().toString());
-        contentValues.put("ano", ano.getSelectedItem().toString());
-        contentValues.put("cor", cor.getSelectedItem().toString());
-        contentValues.put("cambio", radioSelectButton.getText().toString());
-        contentValues.put("descricao", descricao.getText().toString());
+        contentValues.put("img",        "imagemTeste");
+        contentValues.put("modelo",     modelo.getText().toString());
+        contentValues.put("estilo",     radioTipoSelected.getText().toString());
+        contentValues.put("ano",        ano.getSelectedItem().toString());
+        contentValues.put("cor",        cor.getSelectedItem().toString());
+        contentValues.put("cambio",     radioCambioSelected.getText().toString());
+        contentValues.put("descricao",  descricao.getText().toString());
+        contentValues.put("preco",      preco.getText().toString());
 
-        sqLiteDatabase.execSQL("delete from " + TABLE_NAME);
+        //sqLiteDatabase.execSQL("delete from " + TABLE_NAME);
 
         sqLiteDatabase.insert("CarrosVender", null, contentValues);
 
@@ -140,15 +143,15 @@ public class VendaFragment extends Fragment {
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
-                System.out.println(cursor.getString(0));
-                System.out.println(cursor.getString(1));
-                System.out.println(cursor.getString(2));
-                System.out.println(cursor.getString(3));
-                System.out.println(cursor.getString(4));
-                System.out.println(cursor.getString(5));
-                System.out.println(cursor.getString(6));
-                System.out.println(cursor.getString(7));
-                System.out.println(cursor.getString(8));
+                System.out.println("ID: "       +   cursor.getString(0));
+                System.out.println("Img:"       +   cursor.getString(1));
+                System.out.println("Modelo: "   +   cursor.getString(2));
+                System.out.println("Estilo: "   +   cursor.getString(3));
+                System.out.println("Ano: "      +   cursor.getString(4));
+                System.out.println("Cor: "      +   cursor.getString(5));
+                System.out.println("Cambio: "   +   cursor.getString(6));
+                System.out.println("Descrição: "+   cursor.getString(7));
+                System.out.println("Preço: "    +   cursor.getString(8));
             } while (cursor.moveToNext());
 
         }

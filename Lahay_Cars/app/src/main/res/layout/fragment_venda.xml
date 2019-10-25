@@ -30,6 +30,7 @@
 
             <EditText
                 android:id="@+id/modelo"
+                android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Modelo do carro"/>
@@ -210,8 +211,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/descricao"
+                    android:textSize="15dp"
                     android:layout_below="@id/descricaoTitulo"
                     android:hint="Descrição do carro"/>
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/descricao"
+                    android:id="@+id/tituloPreco"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:text="Preço"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tituloPreco"
+                    android:textSize="15dp"
+                    android:id="@+id/preco"
+                    android:hint="Preço do carro"/>
+
 
             </RelativeLayout>
 

@@ -16,7 +16,7 @@ public class BDHelper  extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE CarrosVender (_id INTEGER PRIMARY KEY AUTOINCREMENT, img Text, modelo Text, estilo Text, ano INTEGER, cor Text, cambio Text, aro INTEGER,  descricao Text);");
+        db.execSQL("CREATE TABLE CarrosVender (_id INTEGER PRIMARY KEY AUTOINCREMENT, img Text, modelo Text, estilo Text, ano INTEGER, cor Text, cambio Text,  descricao Text, preco REAL);");
     }
 
     @Override

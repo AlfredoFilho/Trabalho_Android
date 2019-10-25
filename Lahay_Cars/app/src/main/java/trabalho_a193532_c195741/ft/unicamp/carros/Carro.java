@@ -9,9 +9,6 @@ public class Carro {
     private String preco;
     private String cambio;
 
-
-
-
     public Carro(String modelo, int foto, String descricao, String cor, String preco, String ano, String cambio) {
         this.foto = foto;
         this.descricao = descricao;
