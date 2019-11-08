@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lahay.vender.VenderFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -126,6 +127,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_vender) {
 
+            Fragment venderFragment = fragmentManager.findFragmentByTag("vender_fragment");
+            if (venderFragment == null)
+                venderFragment = new VenderFragment();
+            replaceFragment(venderFragment, "vender_fragment");
+
         } else if (id == R.id.nav_carrinho) {
 
         } else if (id == R.id.nav_sobre) {
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity
                 sobreFragment = new Sobre();
             replaceFragment(sobreFragment, "sobre_fragment");
 
-        } else if (id == R.id.nav_sobre) {
+        } else if (id == R.id.nav_sair) {
 
             signOut();
 
@@ -147,6 +153,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void signOut(){
+
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity
                         finish();
                     }
                 });
+
     }
 
     public void replaceFragment(Fragment fragment, String tag) {
