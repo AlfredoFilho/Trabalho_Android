@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "749723315248",
+    "firebase_url": "https://lahay-3ded8.firebaseio.com",
+    "project_id": "lahay-3ded8",
+    "storage_bucket": "lahay-3ded8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749723315248:android:0af5d0e9e24466873e91f5",
+        "android_client_info": {
+          "package_name": "com.example.lahay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749723315248-l4d5sirs1hcmtu8m8c0i0lkaqgkvted5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lahay",
+            "certificate_hash": "5d32f547445bb838831eee7a79fa85f7d8c0c3ed"
+          }
+        },
+        {
+          "client_id": "749723315248-criqra7jck4irongstdm7j1g777t58be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSyoZ7jtGVyW9YCF35_YGXWCPndjLuCCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749723315248-criqra7jck4irongstdm7j1g777t58be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
