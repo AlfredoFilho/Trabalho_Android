@@ -60,7 +60,6 @@ public class Login extends AppCompatActivity {
         showSignOptions();
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -88,6 +87,5 @@ public class Login extends AppCompatActivity {
                 .setTheme(R.style.ThemeLogin)
                 .build(),MY_REQUEST_CODE
         );
-
     }
 }
