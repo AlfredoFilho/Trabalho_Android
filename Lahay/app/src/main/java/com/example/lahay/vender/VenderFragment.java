@@ -132,7 +132,7 @@ public class VenderFragment extends Fragment {
                 precoCarro.getText().toString()
         );
 
-        firebaseBD.getReference().child("Users").child(user.getDisplayName()).setValue(vendaData);
+        firebaseBD.getReference().child("Users").child(user.getUid()).setValue(vendaData);
 
         StorageReference storageRef = null;
         storageRef = FirebaseStorage.getInstance().getReference();

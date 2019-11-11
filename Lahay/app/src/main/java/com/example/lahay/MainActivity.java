@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lahay.comprar.ComprarFragment;
 import com.example.lahay.vender.VenderFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -124,6 +125,11 @@ public class MainActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_comprar) {
+
+            Fragment comprarFragment = fragmentManager.findFragmentByTag("compara_fragment");
+            if (comprarFragment == null)
+                comprarFragment = new ComprarFragment();
+            replaceFragment(comprarFragment, "compara_fragment");
 
         } else if (id == R.id.nav_vender) {
 
