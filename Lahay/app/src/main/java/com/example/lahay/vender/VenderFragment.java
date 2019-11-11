@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,7 +23,16 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.lahay.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
@@ -42,6 +52,7 @@ public class VenderFragment extends Fragment {
     private Button carregarFoto;
     private ImageView fotoCarro;
     private View view;
+    private Bitmap bitmapImage;
 
     public VenderFragment() {
         // Required empty public constructor
@@ -98,6 +109,58 @@ public class VenderFragment extends Fragment {
     }
 
     public void cadastrarVenda(){
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase firebaseBD = FirebaseDatabase.getInstance();
+
+        RadioButton radioEstiloSelected;
+        RadioButton radioCambioSelected;
+
+        int selectedId = radioGroupEstilo.getCheckedRadioButtonId();
+        radioEstiloSelected = view.findViewById(selectedId);
+
+        int selectedCambioId = radioGroupCambio.getCheckedRadioButtonId();
+        radioCambioSelected = view.findViewById(selectedCambioId);
+
+        VendaData vendaData = new VendaData(
+                modeloCarro.getText().toString(),
+                radioEstiloSelected.getText().toString(),
+                anoCarro.getSelectedItem().toString(),
+                corCarro.getSelectedItem().toString(),
+                radioCambioSelected.getText().toString(),
+                descricaoCarro.getText().toString(),
+                precoCarro.getText().toString()
+        );
+
+        firebaseBD.getReference().child("Users").child(user.getDisplayName()).setValue(vendaData);
+
+        StorageReference storageRef = null;
+        storageRef = FirebaseStorage.getInstance().getReference();
+
+        String nomeImagemm = modeloCarro.getText().toString().replaceAll("\\s+","") + ".jpg";
+
+        StorageReference mountainsRef = storageRef.child(nomeImagemm);
+        //StorageReference mountainImagesRef = storageRef.child("images/" + nomeImagemm);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+
+
         Toast.makeText(getActivity(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
@@ -115,7 +178,7 @@ public class VenderFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             if (requestCode == 1000) {
                 Uri returnUri = data.getData();
-                Bitmap bitmapImage = null;
+                bitmapImage = null;
                 try {
                     bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
                 } catch (IOException e) {
