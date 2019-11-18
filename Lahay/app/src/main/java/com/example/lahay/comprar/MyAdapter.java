@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.lahay.MyAsyncTask;
 import com.example.lahay.R;
 import com.example.lahay.vender.VenderFragment;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,41 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         myViewHolder.modelo.setText(comprar.get(i).getModeloCarro());
         myViewHolder.descricao.setText(comprar.get(i).getDescricao());
         myViewHolder.preco.setText(comprar.get(i).getPreco());
+        //myViewHolder.fotoCarro.setImageBitmap(comprar.get(i).getFotoCarrro());
 
-        System.out.println(comprar.get(i).getModeloCarro());
-
-        bitmapImage = getImage(comprar.get(i).getModeloCarro());
-
-
-        myViewHolder.fotoCarro.setImageBitmap(bitmapImage);
-
-    }
-
-    Bitmap getImage(String modeloCarro){
-
-
-        StorageReference storageRef = null;
-        storageRef = FirebaseStorage.getInstance().getReference();
-
-        String nomeImagem = modeloCarro.replaceAll("\\s+","") + ".jpg";
-
-
-        StorageReference islandRef = storageRef.child(nomeImagem);
-
-        final long ONE_MEGABYTE = 1024 * 1024;
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                 bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errorso
-            }
-        });
-
-        return bitmapImage;
+        new MyAsyncTask(myViewHolder.fotoCarro).execute(comprar.get(i).getModeloCarro());
 
     }
 

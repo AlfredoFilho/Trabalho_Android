@@ -126,10 +126,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_comprar) {
 
-            Fragment comprarFragment = fragmentManager.findFragmentByTag("compara_fragment");
+            Fragment comprarFragment = fragmentManager.findFragmentByTag("comprar_fragment");
             if (comprarFragment == null)
                 comprarFragment = new ComprarFragment();
-            replaceFragment(comprarFragment, "compara_fragment");
+            replaceFragment(comprarFragment, "comprar_fragment");
 
         } else if (id == R.id.nav_vender) {
 

@@ -1,5 +1,7 @@
 package com.example.lahay.comprar;
 
+import android.graphics.Bitmap;
+
 public class Comprar {
 
     public String modeloCarro;
@@ -9,6 +11,7 @@ public class Comprar {
     public String cambio;
     public String descricao;
     public String preco;
+    public Bitmap fotoCarrro;
 
     public Comprar() {
 
@@ -74,6 +77,11 @@ public class Comprar {
 
     }
 
+    public Bitmap getFotoCarrro() {
+        return fotoCarrro;
+    }
 
-
+    public void setFotoCarrro(Bitmap fotoCarrro) {
+        this.fotoCarrro = fotoCarrro;
+    }
 }

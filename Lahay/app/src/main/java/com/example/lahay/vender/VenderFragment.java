@@ -156,14 +156,14 @@ public class VenderFragment extends Fragment {
                 precoCarro.getText().toString()
         );
 
-        firebaseBD.getReference().child("Users").child(user.getUid()).push().child("Carros").setValue(vendaData);
+        firebaseBD.getReference().child("Users").child(user.getUid()).setValue(vendaData);
 
         StorageReference storageRef = null;
         storageRef = FirebaseStorage.getInstance().getReference();
 
-        String nomeImagemm = modeloCarro.getText().toString().replaceAll("\\s+","") + ".jpg";
+        String nomeImagem = modeloCarro.getText().toString().replaceAll("\\s+","") + ".jpg";
 
-        StorageReference mountainsRef = storageRef.child(nomeImagemm);
+        StorageReference mountainsRef = storageRef.child("images/" + nomeImagem);
         //StorageReference mountainImagesRef = storageRef.child("images/" + nomeImagemm);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
