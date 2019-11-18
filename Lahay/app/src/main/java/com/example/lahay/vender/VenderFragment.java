@@ -2,6 +2,7 @@ package com.example.lahay.vender;
 
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -54,6 +57,14 @@ public class VenderFragment extends Fragment {
     private View view;
     private Bitmap bitmapImage;
 
+
+
+    private Uri mImageUri;
+    private DatabaseReference mDatabaseref;
+    private StorageReference mstorageRef;
+
+
+
     public VenderFragment() {
         // Required empty public constructor
     }
@@ -62,6 +73,19 @@ public class VenderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
+
+        mstorageRef = FirebaseStorage.getInstance().getReference("upload");
+        mDatabaseref = FirebaseDatabase.getInstance().getReference("upload");
+
+
+
+
+
+
         // Inflate the layout for this fragment
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_vender, container, false);
@@ -132,7 +156,7 @@ public class VenderFragment extends Fragment {
                 precoCarro.getText().toString()
         );
 
-        firebaseBD.getReference().child("Users").child(user.getUid()).setValue(vendaData);
+        firebaseBD.getReference().child("Users").child(user.getUid()).push().child("Carros").setValue(vendaData);
 
         StorageReference storageRef = null;
         storageRef = FirebaseStorage.getInstance().getReference();
@@ -159,7 +183,6 @@ public class VenderFragment extends Fragment {
                 // ...
             }
         });
-
 
         Toast.makeText(getActivity(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
     }
@@ -188,5 +211,4 @@ public class VenderFragment extends Fragment {
             }
         }
     }
-
 }

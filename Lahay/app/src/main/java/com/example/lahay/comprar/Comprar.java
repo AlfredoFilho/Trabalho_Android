@@ -1,26 +1,65 @@
 package com.example.lahay.comprar;
 
 public class Comprar {
-    private String modelo;
-    private String preco;
-    private String descricao;
 
-    public Comprar(){
+    public String modeloCarro;
+    public String estilo;
+    public String ano;
+    public String cor;
+    public String cambio;
+    public String descricao;
+    public String preco;
+
+    public Comprar() {
 
     }
 
-    public Comprar(String modelo, String preco, String descricao) {
-        this.modelo = modelo;
-        this.preco = preco;
+    public String getModeloCarro() {
+        return modeloCarro;
+    }
+
+    public void setModeloCarro(String modeloCarro) {
+        this.modeloCarro = modeloCarro;
+    }
+
+    public String getEstilo() {
+        return estilo;
+    }
+
+    public void setEstilo(String estilo) {
+        this.estilo = estilo;
+    }
+
+    public String getAno() {
+        return ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public String getCambio() {
+        return cambio;
+    }
+
+    public void setCambio(String cambio) {
+        this.cambio = cambio;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
     }
 
     public String getPreco() {
@@ -31,11 +70,10 @@ public class Comprar {
         this.preco = preco;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public Comprar(String modeloCarro, String estilo, String ano, String cor, String cambio, String descricao, String preco) {
+
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+
+
 }
