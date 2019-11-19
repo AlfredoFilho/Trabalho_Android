@@ -74,17 +74,8 @@ public class VenderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
-
-
         mstorageRef = FirebaseStorage.getInstance().getReference("upload");
         mDatabaseref = FirebaseDatabase.getInstance().getReference("upload");
-
-
-
-
-
 
         // Inflate the layout for this fragment
         if (view == null) {
@@ -129,6 +120,8 @@ public class VenderFragment extends Fragment {
             }
         });
 
+        limparFragmento();
+
         return view;
     }
 
@@ -156,7 +149,7 @@ public class VenderFragment extends Fragment {
                 precoCarro.getText().toString()
         );
 
-        firebaseBD.getReference().child("Users").child(user.getUid()).setValue(vendaData);
+        firebaseBD.getReference().child("Users").child(user.getUid()).child("Carros").child(modeloCarro.getText().toString()).setValue(vendaData);
 
         StorageReference storageRef = null;
         storageRef = FirebaseStorage.getInstance().getReference();
@@ -185,6 +178,19 @@ public class VenderFragment extends Fragment {
         });
 
         Toast.makeText(getActivity(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
+        limparFragmento();
+    }
+
+    public void limparFragmento(){
+
+        modeloCarro.setText("");
+        radioGroupEstilo.clearCheck();
+        radioGroupCambio.clearCheck();
+        descricaoCarro.setText("");
+        precoCarro.setText("");
+        fotoCarro.setImageResource(android.R.color.transparent);
+
     }
 
     private void startGallery() {

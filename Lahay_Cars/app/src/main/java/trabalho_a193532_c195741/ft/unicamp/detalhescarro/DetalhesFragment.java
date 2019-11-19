@@ -38,6 +38,7 @@ public class DetalhesFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (view == null)
             view = inflater.inflate(R.layout.fragment_detalhes, container, false);
+
         imageView = view.findViewById(R.id.imagem);
         nomeTextView = view.findViewById(R.id.modeloCarro);
         descricaoTextView = view.findViewById(R.id.descricao);

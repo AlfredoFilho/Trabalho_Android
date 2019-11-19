@@ -23,6 +23,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lahay.carrinho.CarrinhoFragment;
+import com.example.lahay.carrinho.FecharCompra;
+import com.example.lahay.comprar.Comprar;
 import com.example.lahay.comprar.ComprarFragment;
 import com.example.lahay.vender.VenderFragment;
 import com.firebase.ui.auth.AuthUI;
@@ -30,11 +33,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final int PERMISSON_REQUEST = 2;
     FragmentManager fragmentManager;
+    ArrayList<Comprar> listaCarrinho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +49,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        listaCarrinho = new ArrayList<>();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -140,6 +139,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_carrinho) {
 
+            Fragment carrinhoFragment = fragmentManager.findFragmentByTag("carrinhoFragment");
+            if (carrinhoFragment == null)
+                carrinhoFragment = new CarrinhoFragment();
+            replaceFragment(carrinhoFragment, "carrinhoFragment");
+
         } else if (id == R.id.nav_sobre) {
 
             Fragment sobreFragment = fragmentManager.findFragmentByTag("sobre_fragment");
@@ -178,4 +182,21 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    public void setListaCarrinho(ArrayList<Comprar> listaCarrinho) {
+        this.listaCarrinho = listaCarrinho;
+    }
+
+    public ArrayList<Comprar> getListaCarrinho() {
+        return listaCarrinho;
+    }
+
+    public void adicionarCarrinho(Comprar compra) {
+        this.listaCarrinho.add(compra);
+    }
+
+    public void limparListaCarrinho(){
+        this.listaCarrinho.clear();
+    }
+
 }

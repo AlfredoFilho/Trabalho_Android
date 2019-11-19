@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lahay.MainActivity;
 import com.example.lahay.MyAsyncTask;
 import com.example.lahay.R;
 import com.example.lahay.vender.VenderFragment;
@@ -36,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview,viewGroup,false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview, viewGroup,false), i);
     }
 
     @Override
@@ -61,12 +63,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     class MyViewHolder extends  RecyclerView.ViewHolder{
         TextView modelo, descricao, preco;
         ImageView fotoCarro;
-        public MyViewHolder (View itemView){
+
+        public MyViewHolder (View itemView, int position){
             super(itemView);
+
             modelo = (TextView) itemView.findViewById(R.id.modeloCarro);
             descricao = (TextView) itemView.findViewById(R.id.descricao);
             preco = (TextView) itemView.findViewById(R.id.preco);
             fotoCarro = (ImageView) itemView.findViewById(R.id.imagemCarro);
+
+            itemView.findViewById(R.id.btnMais).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
 
         }
     }

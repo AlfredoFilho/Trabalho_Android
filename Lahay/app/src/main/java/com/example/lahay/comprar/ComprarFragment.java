@@ -42,7 +42,6 @@ public class ComprarFragment extends Fragment {
     View view;
     Bitmap bitmapImage;
 
-
     public ComprarFragment() {
         // Required empty public constructor
     }
@@ -64,30 +63,35 @@ public class ComprarFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                   Comprar comprar = dataSnapshot1.getValue(Comprar.class);
 
-                    StorageReference storageRef = null;
-                    storageRef = FirebaseStorage.getInstance().getReference();
+                    for(DataSnapshot dataSnapshotCarro: dataSnapshot1.child("Carros").getChildren()){
 
-                    String nomeImagem = comprar.getModeloCarro().replaceAll("\\s+","") + ".jpg";
+                        Comprar comprar = dataSnapshotCarro.getValue(Comprar.class);
 
-                    StorageReference islandRef = storageRef.child("images/" + nomeImagem);
+                        StorageReference storageRef = null;
+                        storageRef = FirebaseStorage.getInstance().getReference();
 
-                    final long ONE_MEGABYTE = 1024 * 1024;
-                    islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle any errorso
-                        }
-                    });
+                        String nomeImagem = comprar.getModeloCarro().replaceAll("\\s+","") + ".jpg";
 
-                   comprar.setFotoCarrro(bitmapImage);
-                   list.add(comprar);
+                        StorageReference islandRef = storageRef.child("images/" + nomeImagem);
+
+                        final long ONE_MEGABYTE = 1024 * 1024;
+                        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errorso
+                            }
+                        });
+
+                        comprar.setFotoCarrro(bitmapImage);
+                        list.add(comprar);
+
+                    }
                 }
                 adapter = new MyAdapter(getActivity(),list);
                 recyclerView.setAdapter(adapter);

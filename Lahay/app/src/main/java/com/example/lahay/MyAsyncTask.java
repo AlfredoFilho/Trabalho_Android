@@ -35,6 +35,8 @@ public class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
         StorageReference islandRef = storageRef.child("images/" + nomeImagem);
 
+        System.out.println("Caminho imagem: " + islandRef);
+
         final long ONE_MEGABYTE = 1024 * 1024;
         islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

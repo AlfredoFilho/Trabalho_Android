@@ -100,6 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter{
             imageView.setImageResource(carro.getFoto());
             precoTextView.setText("R$"+carro.getPreco());
             descricaoTextView.setText(Html.fromHtml(carro.getDescricao()));
+
             button.setOnClickListener(new View.OnClickListener() {
 
                 @Override
