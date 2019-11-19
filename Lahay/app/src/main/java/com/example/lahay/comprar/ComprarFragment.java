@@ -59,9 +59,8 @@ public class ComprarFragment extends Fragment {
         list = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference().child("Users");
-
-
         reference.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
@@ -79,8 +78,6 @@ public class ComprarFragment extends Fragment {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -90,20 +87,16 @@ public class ComprarFragment extends Fragment {
                     });
 
                    comprar.setFotoCarrro(bitmapImage);
-
                    list.add(comprar);
                 }
                 adapter = new MyAdapter(getActivity(),list);
                 recyclerView.setAdapter(adapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
         return view;
     }

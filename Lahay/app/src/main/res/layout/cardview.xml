@@ -3,12 +3,16 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="15dp">
+    android:paddingBottom="15dp"
+    android:layout_marginTop="10dp">
 
     <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:id="@+id/imagemCarro"
-        android:layout_width="150dp"
-        android:layout_height="150dp"/>
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:scaleType="fitXY"/>
 
     <LinearLayout
         android:orientation="vertical"
