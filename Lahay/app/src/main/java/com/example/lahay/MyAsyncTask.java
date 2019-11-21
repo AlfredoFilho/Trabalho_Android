@@ -4,18 +4,28 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.widget.Adapter;
 import android.widget.ImageView;
 
+import com.example.lahay.comprar.Comprar;
+import com.example.lahay.comprar.MyAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 public class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
         ImageView fotoCarro;
+        ArrayList <Comprar> comprar;
+        int position;
+        MyAdapter adapter;
 
-    public MyAsyncTask(ImageView fotoCarro) {
+    public MyAsyncTask(ImageView fotoCarro, MyAdapter adapter, int position) {
         this.fotoCarro = fotoCarro;
+        this.adapter = adapter;
+        this.position = position;
     }
 
     @Override
@@ -62,7 +72,7 @@ public class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap bitmapImage) {
+        adapter.attFoto(bitmapImage, position);
         fotoCarro.setImageBitmap(bitmapImage);
-
     }
 }

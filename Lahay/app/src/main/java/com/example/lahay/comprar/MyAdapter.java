@@ -3,7 +3,9 @@ package com.example.lahay.comprar;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lahay.MainActivity;
 import com.example.lahay.MyAsyncTask;
@@ -28,30 +31,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     Context context;
     ArrayList <Comprar> comprar;
-    Bitmap bitmapImage;
 
     public MyAdapter(Context c, ArrayList<Comprar> co){
         this.context = c;
         this.comprar = co;
     }
 
+    public void attFoto(Bitmap fotoCarro, int position){
+        comprar.get(position).setFotoCarrro(fotoCarro);
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview, viewGroup,false), i);
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.cardview, viewGroup,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
 
-        //Bitmap bitmapImage;
+        myViewHolder.modelo.setText(comprar.get(position).getModeloCarro());
+        myViewHolder.preco.setText("R$ " + comprar.get(position).getPreco());
+        new MyAsyncTask(myViewHolder.fotoCarro, this, position).execute(comprar.get(position).getModeloCarro());
 
-        myViewHolder.modelo.setText(comprar.get(i).getModeloCarro());
-        myViewHolder.descricao.setText(comprar.get(i).getDescricao());
-        myViewHolder.preco.setText(comprar.get(i).getPreco());
-        //myViewHolder.fotoCarro.setImageBitmap(comprar.get(i).getFotoCarrro());
-
-        new MyAsyncTask(myViewHolder.fotoCarro).execute(comprar.get(i).getModeloCarro());
+        myViewHolder.onClick(position);
 
     }
 
@@ -60,25 +63,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return comprar.size();
     }
 
-    class MyViewHolder extends  RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder{
         TextView modelo, descricao, preco;
         ImageView fotoCarro;
+        Button btn;
 
-        public MyViewHolder (View itemView, int position){
+        public MyViewHolder (View itemView) {
             super(itemView);
 
             modelo = (TextView) itemView.findViewById(R.id.modeloCarro);
-            descricao = (TextView) itemView.findViewById(R.id.descricao);
             preco = (TextView) itemView.findViewById(R.id.preco);
             fotoCarro = (ImageView) itemView.findViewById(R.id.imagemCarro);
+            btn = (Button) itemView.findViewById(R.id.btnMais);
 
-            itemView.findViewById(R.id.btnMais).setOnClickListener(new View.OnClickListener() {
+        }
+
+        public void onClick(final int position) {
+            btn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View v) {
+                    //Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
+                    //System.out.println(comprar.get(position).getModeloCarro());
 
+                    ((MainActivity)context).setCarroDetalhes(comprar.get(position));
+
+                    Fragment detalhesCarro;
+                    detalhesCarro = new DetalhesCarro();
+                    ((MainActivity)context).replaceFragment(detalhesCarro, "detalhesCarro_fragment");
                 }
             });
-
         }
     }
 }

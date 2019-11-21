@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:layout_marginTop="5dp"
                 android:id="@+id/imagemCarro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -46,14 +47,16 @@
 
 
                 <LinearLayout
+                    android:layout_marginLeft="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:padding="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -65,7 +68,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/outroCarro"
+                            android:id="@+id/modeloCarro2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -74,10 +77,11 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="2dp"
                         android:layout_width="wrap_content"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="5dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/Câmbio"
@@ -95,6 +99,27 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_marginTop="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/estilo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Estilo:"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/estiloCarro"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:hint="Estio do carro" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -107,9 +132,9 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="5dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/ano"
@@ -128,10 +153,11 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_marginTop="2dp"
                         android:layout_width="wrap_content"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="5dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/cor"
@@ -161,12 +187,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Descrição:"/>
+                        android:text="Descrição:"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -204,10 +232,10 @@
                         android:layout_weight="1">
 
                         <Button
-                            android:id="@+id/cancelarBtn"
+                            android:id="@+id/btnVoltar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cancelar"/>
+                            android:text="Voltar"/>
                     </LinearLayout>
 
 
@@ -215,7 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Comprar"
-                        android:id="@+id/comprarCarro"
+                        android:id="@+id/btnComprar"
                         android:backgroundTint="#29B42D"
                         />
 

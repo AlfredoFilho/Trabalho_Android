@@ -3,6 +3,7 @@ package com.example.lahay;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity
 
     private final int PERMISSON_REQUEST = 2;
     FragmentManager fragmentManager;
-    ArrayList<Comprar> listaCarrinho;
+    ArrayList <Comprar> listaCarrinho;
+    Comprar carroDetalhes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,10 +185,6 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-    public void setListaCarrinho(ArrayList<Comprar> listaCarrinho) {
-        this.listaCarrinho = listaCarrinho;
-    }
-
     public ArrayList<Comprar> getListaCarrinho() {
         return listaCarrinho;
     }
@@ -197,6 +195,14 @@ public class MainActivity extends AppCompatActivity
 
     public void limparListaCarrinho(){
         this.listaCarrinho.clear();
+    }
+
+    public Comprar getCarroDetalhes() {
+        return carroDetalhes;
+    }
+
+    public void setCarroDetalhes(Comprar carroDetalhes) {
+        this.carroDetalhes = carroDetalhes;
     }
 
 }

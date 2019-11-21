@@ -67,30 +67,7 @@ public class ComprarFragment extends Fragment {
                     for(DataSnapshot dataSnapshotCarro: dataSnapshot1.child("Carros").getChildren()){
 
                         Comprar comprar = dataSnapshotCarro.getValue(Comprar.class);
-
-                        StorageReference storageRef = null;
-                        storageRef = FirebaseStorage.getInstance().getReference();
-
-                        String nomeImagem = comprar.getModeloCarro().replaceAll("\\s+","") + ".jpg";
-
-                        StorageReference islandRef = storageRef.child("images/" + nomeImagem);
-
-                        final long ONE_MEGABYTE = 1024 * 1024;
-                        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                            @Override
-                            public void onSuccess(byte[] bytes) {
-                                bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errorso
-                            }
-                        });
-
-                        comprar.setFotoCarrro(bitmapImage);
                         list.add(comprar);
-
                     }
                 }
                 adapter = new MyAdapter(getActivity(),list);
