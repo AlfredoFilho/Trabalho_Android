@@ -2,8 +2,11 @@ package com.example.lahay.comprar;
 
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,11 @@ import android.widget.Toast;
 
 import com.example.lahay.MainActivity;
 import com.example.lahay.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +69,6 @@ public class DetalhesCarro extends Fragment {
         btnComprar = view.findViewById(R.id.btnComprar);
 
         modeloCarro.setText(carroDetalhes.getModeloCarro());
-        imageCarro.setImageBitmap(carroDetalhes.getFotoCarrro());
         modeloCarro2.setText(carroDetalhes.getModeloCarro());
         anoCarro.setText(carroDetalhes.getAno());
         cambioCarro.setText(carroDetalhes.getCambio());
@@ -69,6 +76,30 @@ public class DetalhesCarro extends Fragment {
         estiloCarro.setText(carroDetalhes.getEstilo());
         descricaoCarro.setText(carroDetalhes.getDescricao());
         precoCarro.setText("R$ " + carroDetalhes.getPreco());
+
+        StorageReference storageRef = null;
+        storageRef = FirebaseStorage.getInstance().getReference();
+
+        String nomeImagem = carroDetalhes.getModeloCarro().replaceAll("\\s+","") + ".jpg";
+
+        StorageReference islandRef = storageRef.child("images/" + nomeImagem);
+
+        islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                // Pass it to Picasso to download, show in ImageView and caching
+                Picasso.get().load(uri.toString()).into(imageCarro);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+        final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
         btnComprar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +112,8 @@ public class DetalhesCarro extends Fragment {
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+                //getActivity().onBackPressed();
+                fragmentManager.popBackStack();
             }
         });
 

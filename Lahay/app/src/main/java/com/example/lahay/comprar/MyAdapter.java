@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.lahay.MainActivity;
 import com.example.lahay.MyAsyncTask;
 import com.example.lahay.R;
@@ -76,6 +77,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             fotoCarro = (ImageView) itemView.findViewById(R.id.imagemCarro);
             btn = (Button) itemView.findViewById(R.id.btnMais);
 
+            Glide.with(context)
+                    .load(R.drawable.loadergif) // aqui é teu gif
+                    .asGif()
+                    .into(fotoCarro);
+
         }
 
         public void onClick(final int position) {
@@ -84,6 +90,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 public void onClick(View v) {
                     //Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
                     //System.out.println(comprar.get(position).getModeloCarro());
+
+
 
                     ((MainActivity)context).setCarroDetalhes(comprar.get(position));
 

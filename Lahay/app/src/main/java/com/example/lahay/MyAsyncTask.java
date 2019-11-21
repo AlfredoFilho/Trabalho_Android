@@ -2,6 +2,8 @@ package com.example.lahay;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.widget.Adapter;
@@ -13,14 +15,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
-public class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
+public class MyAsyncTask extends AsyncTask<String, Void, ImageView>{
         ImageView fotoCarro;
-        ArrayList <Comprar> comprar;
         int position;
         MyAdapter adapter;
+
 
     public MyAsyncTask(ImageView fotoCarro, MyAdapter adapter, int position) {
         this.fotoCarro = fotoCarro;
@@ -34,10 +38,8 @@ public class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     @Override
-    protected Bitmap doInBackground(String... args) {
+    protected ImageView doInBackground(String... args){
 
-
-        final Bitmap[] bitmapImage = new Bitmap[1];
         StorageReference storageRef = null;
         storageRef = FirebaseStorage.getInstance().getReference();
 
@@ -45,34 +47,29 @@ public class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
         StorageReference islandRef = storageRef.child("images/" + nomeImagem);
 
-        System.out.println("Caminho imagem: " + islandRef);
-
-        final long ONE_MEGABYTE = 1024 * 1024;
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onSuccess(byte[] bytes) {
-                bitmapImage[0] = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                // Pass it to Picasso to download, show in ImageView and caching
+                Picasso.get().load(uri.toString()).into(fotoCarro);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle any errorso
+                // Handle any errors
             }
         });
 
-        while (bitmapImage[0] == null) {
-            continue;
-        }
-
-        return bitmapImage[0];
+        return fotoCarro;
 
     }
 
     @Override
-    protected void onPostExecute(Bitmap bitmapImage) {
-        adapter.attFoto(bitmapImage, position);
-        fotoCarro.setImageBitmap(bitmapImage);
+    protected void onPostExecute(ImageView fotoCarro) {
+        //Bitmap bitmap = ((BitmapDrawable)fotoCarro.getDrawable()).getBitmap();
+        //adapter.attFoto(bitmap, position);
+        //fotoCarro.setImageBitmap(bitmapImage);
     }
 }

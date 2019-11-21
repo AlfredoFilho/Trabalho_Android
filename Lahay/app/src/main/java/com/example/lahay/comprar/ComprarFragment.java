@@ -67,6 +67,7 @@ public class ComprarFragment extends Fragment {
                     for(DataSnapshot dataSnapshotCarro: dataSnapshot1.child("Carros").getChildren()){
 
                         Comprar comprar = dataSnapshotCarro.getValue(Comprar.class);
+
                         list.add(comprar);
                     }
                 }
