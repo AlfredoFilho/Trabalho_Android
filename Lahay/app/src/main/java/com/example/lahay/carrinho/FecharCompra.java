@@ -31,13 +31,14 @@ public class FecharCompra extends Fragment {
 
     View view;
     EditText editText;
-    TextView precoTotal;
-    ArrayList<Comprar> listaCarrinho;
+    TextView txtTotal;
+    ArrayList<Comprar> listaCompras;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String endereco;
     TextView numeroCasa;
-    String precoT;
+    TextView textEndereco;
     String email;
+    String precoT;
 
     public FecharCompra() {
         // Required empty public constructor
@@ -52,19 +53,39 @@ public class FecharCompra extends Fragment {
             view = inflater.inflate(R.layout.fragment_fechar_compra, container, false);
         }
 
+        Float totalCarrinho = 0.f;
+
         editText = view.findViewById(R.id.editCEP);
         numeroCasa = view.findViewById(R.id.numeroCasa);
-        listaCarrinho = ((MainActivity)getActivity()).getListaCarrinho();
-        precoTotal = view.findViewById(R.id.precoTotal);
-        precoT = precoTotal.getText().toString();
+        textEndereco = view.findViewById(R.id.textEndereco);
+        listaCompras = ((MainActivity)getActivity()).getListaCarrinho();
+        txtTotal = view.findViewById(R.id.precoTotal);
+
         email = user.getEmail();
+
+        listaCompras = ((MainActivity)getActivity()).getListaCarrinho();
+        for (Comprar itemLista: listaCompras) {
+            totalCarrinho = totalCarrinho + Float.parseFloat(itemLista.getPreco());
+        }
+        txtTotal.setText("R$ " + Float.toString(totalCarrinho) + "00");
+        precoT = txtTotal.getText().toString();
+
+        view.findViewById(R.id.btnBuscar).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new MyViaCepAsyncTask(FecharCompra.this).execute(editText.getText().toString());
+                    }
+                }
+        );
 
         view.findViewById(R.id.btnComprar).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new MyViaCepAsyncTask(FecharCompra.this).execute(editText.getText().toString());
+                        endereco = endereco +  ", Número: " + numeroCasa.getText().toString() + ".";
 
+                        enviarEmail();
                         openDialog();
 
                         Fragment firstFragment;
@@ -79,15 +100,16 @@ public class FecharCompra extends Fragment {
     }
 
     public void enviarEmail(){
-        String conteudo = "Olá " + user.getDisplayName() + "." +
+        String conteudo = "Olá, " + user.getDisplayName() + "." +
                 "\n\nEstamos enviando esse email para confirmar sua compra no valor de: " + precoT + "."
-                + "\nSeu(s) veículo(s) vão chegar em: " + getEndereco();
+                + "\nSeu(s) veículo(s) vão chegar em: " + endereco;
 
         GmailSend send = new GmailSend(email, conteudo);
     }
 
     public void setEndereco(String enderecoAssync){
-        this.endereco = enderecoAssync + ", Número: " + numeroCasa.getText().toString() + ".";
+        textEndereco.setText(enderecoAssync);
+        endereco = enderecoAssync;
     }
 
     public String getEndereco() {

@@ -44,7 +44,7 @@ public class CarrinhoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_carrinho, container, false);
         }
 
-        Float totalCarrinho = 0.f;
+        Float totalCarrinho = 0.00f;
 
         recycleCarrinho =  view.findViewById(R.id.recycleCarrinho);
         recycleCarrinho.setLayoutManager(new LinearLayoutManager(getActivity()));

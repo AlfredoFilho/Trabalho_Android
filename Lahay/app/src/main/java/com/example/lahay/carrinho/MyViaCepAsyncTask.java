@@ -84,7 +84,6 @@ public class MyViaCepAsyncTask extends AsyncTask<String, Void, String> {
 
             enderecoAssync = enderecoAssync + "Rua: " +  jsonObject.getString("logradouro") + ", Bairro: " +  jsonObject.getString("bairro");
             fragment.setEndereco(enderecoAssync);
-            fragment.enviarEmail();
 
         } catch(JSONException e) {
             textView.append("ERRO: Não foi possível converter em JSONObject: " + args+"\n");

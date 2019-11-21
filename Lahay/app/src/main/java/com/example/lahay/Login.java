@@ -31,27 +31,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btn_sign_out = (Button)findViewById(R.id.btn_sign_out);
-        btn_sign_out.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                AuthUI.getInstance()
-                        .signOut(Login.this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                btn_sign_out.setEnabled(false);
-                                showSignOptions();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Login.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.PhoneBuilder().build(),
@@ -66,16 +45,14 @@ public class Login extends AppCompatActivity {
         if(requestCode == MY_REQUEST_CODE){
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if(resultCode == RESULT_OK){
-                //Get user
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Toast.makeText(this,""+user.getEmail(), Toast.LENGTH_SHORT).show();
-                //Set button signout
 
                 Intent goMain = new Intent(Login.this, MainActivity.class);
                 startActivity(goMain);
-                //btn_sign_out.setEnabled(true);
+
             }else{
+
                 Toast.makeText(this, ""+response.getError().getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         }
     }
