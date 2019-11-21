@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Modelo do Carro"
+                    android:id="@+id/modeloCarro"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:textSize="15dp">
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Preço do Carro"
+                    android:textSize="15dp"
+                    android:textColor="#29B42D"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/precoCarro">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:gravity="right">
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:text="Detalhes"
+                    android:textSize="10dp"
+                    android:id="@+id/btnDetalhes"
+                    android:textAlignment="center"
+                    android:gravity="right">
+                </Button>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#000" />
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

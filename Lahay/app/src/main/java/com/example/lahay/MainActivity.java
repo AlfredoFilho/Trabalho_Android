@@ -141,10 +141,17 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_carrinho) {
 
-            Fragment carrinhoFragment = fragmentManager.findFragmentByTag("carrinhoFragment");
-            if (carrinhoFragment == null)
-                carrinhoFragment = new CarrinhoFragment();
-            replaceFragment(carrinhoFragment, "carrinhoFragment");
+            if(listaCarrinho.isEmpty()){
+                Toast.makeText(this, "Primeiro adicione um item no Carrinho", Toast.LENGTH_SHORT).show();
+
+            }else{
+
+                Fragment carrinhoFragment = fragmentManager.findFragmentByTag("carrinhoFragment");
+                if (carrinhoFragment == null)
+                    carrinhoFragment = new CarrinhoFragment();
+                replaceFragment(carrinhoFragment, "carrinhoFragment");
+
+            }
 
         } else if (id == R.id.nav_sobre) {
 
