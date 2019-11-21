@@ -44,7 +44,7 @@ public class CarrinhoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_carrinho, container, false);
         }
 
-        
+        Float totalCarrinho = 0.f;
 
         recycleCarrinho =  view.findViewById(R.id.recycleCarrinho);
         recycleCarrinho.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,8 +59,10 @@ public class CarrinhoFragment extends Fragment {
         recycleCarrinho.setAdapter(adapterCarrinho);
 
         for (Comprar itemLista: listaCompras) {
-            System.out.println(itemLista.getModeloCarro());
+            totalCarrinho = totalCarrinho + Float.parseFloat(itemLista.getPreco());
         }
+
+        txtTotal.setText("R$ " + Float.toString(totalCarrinho) + "00");
 
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override

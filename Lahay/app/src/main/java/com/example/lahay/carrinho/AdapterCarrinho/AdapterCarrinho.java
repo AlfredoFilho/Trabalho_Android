@@ -2,6 +2,7 @@ package com.example.lahay.carrinho.AdapterCarrinho;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.lahay.MainActivity;
 import com.example.lahay.R;
 import com.example.lahay.comprar.Comprar;
 
@@ -63,13 +66,13 @@ public class AdapterCarrinho extends RecyclerView.Adapter<AdapterCarrinho.MyView
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                    //System.out.println(comprar.get(position).getModeloCarro());
+                    System.out.println(comprar.get(position).getModeloCarro());
 
-                   /* ((MainActivity)context).setCarroDetalhes(comprar.get(position));
+                    ((MainActivity)context).setCarroDetalhes(comprar.get(position));
 
-                    Fragment detalhesCarro;
-                    detalhesCarro = new DetalhesCarro();
-                    ((MainActivity)context).replaceFragment(detalhesCarro, "detalhesCarro_fragment");*/
+                    Fragment detalhesCompra;
+                    detalhesCompra = new DetalhesCompra();
+                    ((MainActivity)context).replaceFragment(detalhesCompra, "cetalhesCompra_fragment");
                 }
             });
         }

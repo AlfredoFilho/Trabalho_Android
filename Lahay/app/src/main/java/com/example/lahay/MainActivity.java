@@ -196,6 +196,10 @@ public class MainActivity extends AppCompatActivity
         return listaCarrinho;
     }
 
+    public void setListaCarrinho(ArrayList<Comprar> listaCarrinho) {
+        this.listaCarrinho = listaCarrinho;
+    }
+
     public void adicionarCarrinho(Comprar compra) {
         this.listaCarrinho.add(compra);
     }
