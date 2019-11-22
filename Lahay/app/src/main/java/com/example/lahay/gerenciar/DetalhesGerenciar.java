@@ -46,6 +46,7 @@ public class DetalhesGerenciar extends Fragment {
     TextView descricaoCarro;
     TextView estiloCarro;
     TextView precoCarro;
+    Button btnEditar;
     Button btnRemover;
     ArrayList<Comprar> listaCompras;
     DatabaseReference reference;
@@ -80,6 +81,7 @@ public class DetalhesGerenciar extends Fragment {
         estiloCarro = view.findViewById(R.id.estiloCarro);
         descricaoCarro = view.findViewById(R.id.descricaoCarro);
         precoCarro = view.findViewById(R.id.precoCarro);
+        btnEditar = view.findViewById(R.id.btnEditar);
         btnRemover = view.findViewById(R.id.btnRemover);
 
         modeloCarro.setText(carroDetalhes.getModeloCarro());
@@ -115,6 +117,17 @@ public class DetalhesGerenciar extends Fragment {
 
         final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment editarCarro;
+                editarCarro = new EditarCarro();
+                ((MainActivity)getActivity()).replaceFragment(editarCarro, "editarCarro_fragment");
+
+            }
+        });
+
         btnRemover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +137,7 @@ public class DetalhesGerenciar extends Fragment {
                 fragmentManager.popBackStack();
             }
         });
+
         return view;
 
     }

@@ -3,13 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".firstfrag.FirstFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:text="FirstFragment" />
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/carrosCad"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sugestões para você!"
+            android:padding="10dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myRecycle"
+            android:layout_below="@id/carrosCad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
 
 </FrameLayout>

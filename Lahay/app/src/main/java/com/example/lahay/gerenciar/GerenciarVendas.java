@@ -82,6 +82,7 @@ public class GerenciarVendas extends Fragment {
             }
 
         });
+
         return view;
     }
 

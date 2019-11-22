@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vender.VenderFragment">
+    tools:context=".gerenciar.EditarCarro">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +73,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Conversível"
-                    android:checked="false"
                     android:id="@+id/radioConversivel"
                     android:textSize="14dp">
                 </RadioButton>
@@ -290,8 +289,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cadastrar"
-                android:id="@+id/btnCadastrar"/>
+                android:text="Editar"
+                android:id="@+id/btnEditar"/>
 
         </LinearLayout>
 

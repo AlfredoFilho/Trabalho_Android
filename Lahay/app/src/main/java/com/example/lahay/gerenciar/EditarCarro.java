@@ -1,11 +1,13 @@
-package com.example.lahay.vender;
+package com.example.lahay.gerenciar;
 
 
 import android.Manifest;
-import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +26,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.lahay.MainActivity;
+import com.example.lahay.MyAsyncTask;
 import com.example.lahay.R;
+import com.example.lahay.comprar.Comprar;
+import com.example.lahay.vender.VendaData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,8 +39,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
@@ -44,30 +53,25 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VenderFragment extends Fragment {
+public class EditarCarro extends Fragment {
 
+    View view;
     private EditText modeloCarro;
     private RadioGroup radioGroupEstilo;
     private RadioGroup radioGroupCambio;
-    private RadioButton radioEsportivo;
-    private RadioButton radioManual;
-    private RadioButton radioConversivel;
-    private RadioButton radioSemi;
-    private RadioButton radioAuto;
     private EditText descricaoCarro;
     private Spinner anoCarro;
     private Spinner corCarro;
     private EditText precoCarro;
     private Button carregarFoto;
     private ImageView fotoCarro;
-    private View view;
     private Bitmap bitmapImage;
     private DatabaseReference mDatabaseref;
     private StorageReference mstorageRef;
+    Comprar carroDetalhes;
+    DatabaseReference reference;
 
-
-
-    public VenderFragment() {
+    public EditarCarro() {
         // Required empty public constructor
     }
 
@@ -79,12 +83,12 @@ public class VenderFragment extends Fragment {
         mstorageRef = FirebaseStorage.getInstance().getReference("upload");
         mDatabaseref = FirebaseDatabase.getInstance().getReference("upload");
 
-        // Inflate the layout for this fragment
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_vender, container, false);
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_editar_carro, container, false);
         }
 
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("Vender");
+        carroDetalhes = ((MainActivity)getActivity()).getCarroDetalhes();
 
         modeloCarro = view.findViewById(R.id.edModelo);
         radioGroupEstilo = view.findViewById(R.id.groupEstilo);
@@ -95,13 +99,37 @@ public class VenderFragment extends Fragment {
         precoCarro = view.findViewById(R.id.edPreco);
         carregarFoto = view.findViewById(R.id.btnFoto);
         fotoCarro = view.findViewById(R.id.fotoCarro);
-        radioEsportivo = view.findViewById(R.id.radioEsportivo);
-        radioManual = view.findViewById(R.id.radioManual);
-        radioConversivel = view.findViewById(R.id.radioConversivel);
-        radioSemi = view.findViewById(R.id.radioSemi);
-        radioAuto = view.findViewById(R.id.radioAutomatico);
+
+        modeloCarro.setText(carroDetalhes.getModeloCarro());
+        descricaoCarro.setText(carroDetalhes.getDescricao());
+        precoCarro.setText(carroDetalhes.getPreco());
+
+        StorageReference storageRef = null;
+        storageRef = FirebaseStorage.getInstance().getReference();
+
+        String nomeImagem = carroDetalhes.getModeloCarro().replaceAll("\\s+","") + ".jpg";
+
+        StorageReference islandRef = storageRef.child("images/" + nomeImagem);
+
+        islandRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                // Pass it to Picasso to download, show in ImageView and caching
+                bitmapImage = getBitmap(getActivity(), uri.toString());
+                fotoCarro.setImageBitmap(bitmapImage);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
 
 
+        radioGroupCambio.check(0);
+        radioGroupEstilo.check(0);
 
         carregarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +152,7 @@ public class VenderFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.btnCadastrar).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnEditar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -135,19 +163,29 @@ public class VenderFragment extends Fragment {
                     Toast.makeText(getActivity(), "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    cadastrarVenda();
+                    editarVenda();
                 }
             }
         });
 
-        limparFragmento();
-
         return view;
     }
 
-    public void cadastrarVenda(){
+    public static Bitmap getBitmap(Context context, String url) {
+        final String CACHE_PATH = context.getCacheDir().getAbsolutePath() + "/picasso-cache/"; File[] files=new File(CACHE_PATH).listFiles();
+        for (File file:files) { String fname= file.getName();
+            if (fname.contains(".") && fname.substring(fname.lastIndexOf(".")).equals(".0")) {
+                try { BufferedReader br=new BufferedReader(new FileReader(file));
+                    if (br.readLine().equals(url)) {
+                        String image_path= CACHE_PATH + fname.replace(".0", ".1");
+                        if (new File(image_path).exists()) { return BitmapFactory.decodeFile(image_path); } } }
+                        catch (IOException e) { } } } return null; }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    public void editarVenda(){
+
+        reference = FirebaseDatabase.getInstance().getReference();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         FirebaseDatabase firebaseBD = FirebaseDatabase.getInstance();
 
         RadioButton radioEstiloSelected;
@@ -197,19 +235,17 @@ public class VenderFragment extends Fragment {
             }
         });
 
-        Toast.makeText(getActivity(), "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+        if(modeloCarro.getText().toString().equals(carroDetalhes.getModeloCarro())){
+            ;
+        }else{
+            reference.child("Users").child(user.getUid()).child("Carros").child(carroDetalhes.getModeloCarro()).removeValue();
+        }
 
-        limparFragmento();
-    }
+        Toast.makeText(getActivity(), "Editado com sucesso!", Toast.LENGTH_SHORT).show();
 
-    public void limparFragmento(){
-
-        modeloCarro.setText("");
-        radioGroupEstilo.clearCheck();
-        radioGroupCambio.clearCheck();
-        descricaoCarro.setText("");
-        precoCarro.setText("");
-        fotoCarro.setImageResource(android.R.color.transparent);
+        Fragment gerenciarVendas;
+        gerenciarVendas = new GerenciarVendas();
+        ((MainActivity)getActivity()).replaceFragment(gerenciarVendas, "gerenciarVendas_fragment");
 
     }
 
@@ -237,4 +273,5 @@ public class VenderFragment extends Fragment {
             }
         }
     }
+
 }
