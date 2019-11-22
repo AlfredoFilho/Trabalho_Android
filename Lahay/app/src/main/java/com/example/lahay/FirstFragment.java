@@ -7,12 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FirstFragment extends Fragment {
 
+    View view;
 
     public FirstFragment() {
         // Required empty public constructor
@@ -22,8 +26,15 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+
+        if(view == null){
+            inflater.inflate(R.layout.fragment_first, container, false);
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Olá, " + user.getDisplayName() + ".");
+
+        return view;
     }
 
 }

@@ -22,23 +22,14 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Modelo do Carro"
+                    android:gravity="center"
                     android:id="@+id/modeloCarro"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
                     android:textSize="15dp">
-                </TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Preço do Carro"
-                    android:textSize="15dp"
-                    android:textColor="#29B42D"
-                    android:layout_marginLeft="5dp"
-                    android:id="@+id/precoCarro">
                 </TextView>
 
             </LinearLayout>
@@ -52,9 +43,9 @@
                 <Button
                     android:layout_width="80dp"
                     android:layout_height="35dp"
-                    android:text="Detalhes"
+                    android:text="Gerenciar"
                     android:textSize="10dp"
-                    android:id="@+id/btnDetalhes"
+                    android:id="@+id/btnGerenciar"
                     android:textAlignment="center"
                     android:gravity="right">
                 </Button>

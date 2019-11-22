@@ -13,6 +13,7 @@ import android.view.ViewGroup;
  */
 public class Sobre extends Fragment {
 
+    View view;
 
     public Sobre() {
         // Required empty public constructor
@@ -22,8 +23,15 @@ public class Sobre extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sobre, container, false);
+
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_sobre, container, false);
+        }
+
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Sobre");
+
+
+        return view;
     }
 
 }

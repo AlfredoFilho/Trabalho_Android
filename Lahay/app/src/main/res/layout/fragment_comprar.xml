@@ -5,28 +5,11 @@
         android:layout_height="match_parent"
     tools:context=".comprar.ComprarFragment">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp">
-
-            <TextView
-                android:id="@+id/modeloCarro"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:paddingBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Carros"
-                android:padding="10dp"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/myRecycle"
-                android:layout_below="@id/modeloCarro"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
-
-        </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/myRecycle"
+        android:layout_below="@id/modeloCarro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
 
     </FrameLayout>

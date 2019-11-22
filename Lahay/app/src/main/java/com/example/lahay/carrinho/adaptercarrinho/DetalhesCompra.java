@@ -1,4 +1,4 @@
-package com.example.lahay.carrinho.AdapterCarrinho;
+package com.example.lahay.carrinho.adaptercarrinho;
 
 
 import android.net.Uri;
@@ -56,6 +56,8 @@ public class DetalhesCompra extends Fragment {
         if(view == null){
             view = inflater.inflate(R.layout.fragment_detalhes_compra, container, false);
         }
+
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Detalhes");
 
         carroDetalhes = ((MainActivity)getActivity()).getCarroDetalhes();
         listaCompras = ((MainActivity)getActivity()).getListaCarrinho();

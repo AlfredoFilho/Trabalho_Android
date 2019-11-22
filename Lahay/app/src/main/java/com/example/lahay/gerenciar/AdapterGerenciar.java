@@ -1,4 +1,4 @@
-package com.example.lahay.carrinho.AdapterCarrinho;
+package com.example.lahay.gerenciar;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -17,12 +17,12 @@ import com.example.lahay.comprar.Comprar;
 
 import java.util.ArrayList;
 
-public class AdapterCarrinho extends RecyclerView.Adapter<AdapterCarrinho.MyViewHolder> {
+public class AdapterGerenciar extends RecyclerView.Adapter<AdapterGerenciar.MyViewHolder> {
 
     Context context;
     ArrayList<Comprar> comprar;
 
-    public AdapterCarrinho(Context c, ArrayList<Comprar> co){
+    public AdapterGerenciar(Context c, ArrayList<Comprar> co){
         this.context = c;
         this.comprar = co;
     }
@@ -30,14 +30,13 @@ public class AdapterCarrinho extends RecyclerView.Adapter<AdapterCarrinho.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_carrinho, viewGroup,false));
+        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.itensgerenciar, viewGroup,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
 
         myViewHolder.modeloCarro.setText(comprar.get(position).getModeloCarro());
-        myViewHolder.precoCarro.setText("R$ " + comprar.get(position).getPreco());
 
         myViewHolder.onClick(position);
 
@@ -49,30 +48,26 @@ public class AdapterCarrinho extends RecyclerView.Adapter<AdapterCarrinho.MyView
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView modeloCarro, precoCarro;
-        Button btnDetalhes;
+        TextView modeloCarro;
+        Button btnGerenciar;
 
         public MyViewHolder (View itemView) {
             super(itemView);
 
             modeloCarro = (TextView) itemView.findViewById(R.id.modeloCarro);
-            precoCarro = (TextView) itemView.findViewById(R.id.precoCarro);
-            btnDetalhes = (Button) itemView.findViewById(R.id.btnDetalhes);
+            btnGerenciar = (Button) itemView.findViewById(R.id.btnGerenciar);
 
         }
 
         public void onClick(final int position) {
-            btnDetalhes.setOnClickListener(new View.OnClickListener() {
+            btnGerenciar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                    System.out.println(comprar.get(position).getModeloCarro());
-
                     ((MainActivity)context).setCarroDetalhes(comprar.get(position));
 
-                    Fragment detalhesCompra;
-                    detalhesCompra = new DetalhesCompra();
-                    ((MainActivity)context).replaceFragment(detalhesCompra, "cetalhesCompra_fragment");
+                    Fragment detalhesGerenciar;
+                    detalhesGerenciar = new DetalhesGerenciar();
+                    ((MainActivity)context).replaceFragment(detalhesGerenciar, "detalhesGerenciar_fragment");
                 }
             });
         }

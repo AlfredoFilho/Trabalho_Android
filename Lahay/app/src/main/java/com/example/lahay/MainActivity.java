@@ -28,6 +28,7 @@ import com.example.lahay.carrinho.CarrinhoFragment;
 import com.example.lahay.carrinho.FecharCompra;
 import com.example.lahay.comprar.Comprar;
 import com.example.lahay.comprar.ComprarFragment;
+import com.example.lahay.gerenciar.GerenciarVendas;
 import com.example.lahay.vender.VenderFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -152,6 +153,13 @@ public class MainActivity extends AppCompatActivity
                 replaceFragment(carrinhoFragment, "carrinhoFragment");
 
             }
+
+        } else if (id == R.id.nav_gerenciar) {
+
+            Fragment gerenciarVendas = fragmentManager.findFragmentByTag("gerenciarVendas_fragment");
+            if (gerenciarVendas == null)
+                gerenciarVendas = new GerenciarVendas();
+            replaceFragment(gerenciarVendas, "gerenciarVendas_fragment");
 
         } else if (id == R.id.nav_sobre) {
 

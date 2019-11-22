@@ -24,7 +24,6 @@ public class Login extends AppCompatActivity {
 
     private static final int MY_REQUEST_CODE = 2020;
     List<AuthUI.IdpConfig> providers;
-    Button btn_sign_out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +41,11 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if(requestCode == MY_REQUEST_CODE){
+
             IdpResponse response = IdpResponse.fromResultIntent(data);
+
             if(resultCode == RESULT_OK){
 
                 Intent goMain = new Intent(Login.this, MainActivity.class);

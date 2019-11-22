@@ -24,6 +24,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.lahay.MainActivity;
 import com.example.lahay.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -81,6 +82,8 @@ public class VenderFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_vender, container, false);
         }
+
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Vender");
 
         modeloCarro = view.findViewById(R.id.edModelo);
         radioGroupEstilo = view.findViewById(R.id.groupEstilo);

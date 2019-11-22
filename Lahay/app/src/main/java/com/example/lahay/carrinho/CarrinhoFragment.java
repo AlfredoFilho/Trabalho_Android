@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.lahay.MainActivity;
 import com.example.lahay.R;
-import com.example.lahay.carrinho.AdapterCarrinho.AdapterCarrinho;
+import com.example.lahay.carrinho.adaptercarrinho.AdapterCarrinho;
 import com.example.lahay.comprar.Comprar;
 
 import java.util.ArrayList;
@@ -44,7 +44,9 @@ public class CarrinhoFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_carrinho, container, false);
         }
 
-        Float totalCarrinho = 0.00f;
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Carrinho");
+
+        Integer totalCarrinho = 0;
 
         recycleCarrinho =  view.findViewById(R.id.recycleCarrinho);
         recycleCarrinho.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,10 +61,10 @@ public class CarrinhoFragment extends Fragment {
         recycleCarrinho.setAdapter(adapterCarrinho);
 
         for (Comprar itemLista: listaCompras) {
-            totalCarrinho = totalCarrinho + Float.parseFloat(itemLista.getPreco());
+            totalCarrinho = totalCarrinho + Integer.parseInt(itemLista.getPreco());
         }
 
-        txtTotal.setText("R$ " + Float.toString(totalCarrinho) + "00");
+        txtTotal.setText("R$ " + totalCarrinho);
 
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override

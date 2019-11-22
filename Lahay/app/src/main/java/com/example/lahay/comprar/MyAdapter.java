@@ -88,12 +88,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(context, position+" is clicked", Toast.LENGTH_SHORT).show();
-                    //System.out.println(comprar.get(position).getModeloCarro());
-
-
-
-                    ((MainActivity)context).setCarroDetalhes(comprar.get(position));
+                   ((MainActivity)context).setCarroDetalhes(comprar.get(position));
 
                     Fragment detalhesCarro;
                     detalhesCarro = new DetalhesCarro();

@@ -53,7 +53,9 @@ public class FecharCompra extends Fragment {
             view = inflater.inflate(R.layout.fragment_fechar_compra, container, false);
         }
 
-        Float totalCarrinho = 0.f;
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Finalizar Compra");
+
+        Integer totalCarrinho = 0;
 
         editText = view.findViewById(R.id.editCEP);
         numeroCasa = view.findViewById(R.id.numeroCasa);
@@ -65,9 +67,9 @@ public class FecharCompra extends Fragment {
 
         listaCompras = ((MainActivity)getActivity()).getListaCarrinho();
         for (Comprar itemLista: listaCompras) {
-            totalCarrinho = totalCarrinho + Float.parseFloat(itemLista.getPreco());
+            totalCarrinho = totalCarrinho + Integer.parseInt(itemLista.getPreco());
         }
-        txtTotal.setText("R$ " + Float.toString(totalCarrinho) + "00");
+        txtTotal.setText("R$ " + totalCarrinho);
         precoT = txtTotal.getText().toString();
 
         view.findViewById(R.id.btnBuscar).setOnClickListener(
